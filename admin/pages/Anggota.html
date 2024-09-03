@@ -10,6 +10,7 @@
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
 		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+		<script src="/admin/public/scripts/base.js"></script>
 	</head>
 	<body>
 		<!-- Navbar -->
@@ -96,7 +97,7 @@
 			$(document).ready(function () {
 				const daftarAnggota = async () => {
 					try {
-						const request = await fetch(`http://localhost:3008/users`, { method: 'POST' });
+						const request = await fetch(`${window.API_URL}/users`, { method: 'POST' });
 						const results = await request.json();
 						const tablePengguna = document.getElementById('table-pengguna');
 						let temp = '';
@@ -164,7 +165,7 @@
 					confirmButtonText: 'Yes, delete it!',
 				}).then(async (result) => {
 					if (result.isConfirmed) {
-						const request = await fetch(`http://localhost:3008/delete-data-anggota`, {
+						const request = await fetch(`${window.API_URL}/delete-data-anggota`, {
 							method: 'DELETE',
 							headers: {
 								'Content-Type': 'application/json',

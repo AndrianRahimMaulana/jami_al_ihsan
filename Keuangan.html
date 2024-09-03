@@ -124,6 +124,7 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="/admin/public/scripts/base.js"></script>
 		<script>
 			// Dapetin bulan dan tahun hari ini
 			const getCurrentDate = () => {
@@ -151,7 +152,7 @@
 					const textDataTidakAda = document.getElementById('data-tidak-ada');
 					const totalSaldoElement = document.getElementById('total-saldo');
 
-					const request = await fetch(`http://localhost:3008/filter-laporan-keuangan`, {
+					const request = await fetch(`${window.API_URL}/filter-laporan-keuangan`, {
 						method: 'POST',
 						body: JSON.stringify({ bulan, tahun }),
 						headers: {

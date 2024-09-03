@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+<script src="/admin/public/scripts/base.js"></script>
 	</head>
 	<body>
 		<!-- Navbar -->
@@ -97,7 +98,7 @@
 
 			// Mengambil data jadwal sholat dari database
 			const dataKontak = async () => {
-				const request = await fetch(`http://localhost:3008/kontak`, {
+				const request = await fetch(`${window.API_URL}/kontak`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -128,7 +129,7 @@
 
 				const kontakValue = kontak.value;
 				try {
-					const response = await fetch('http://localhost:3008/edit-kontak', {
+					const response = await fetch(window.API_URL + '/edit-kontak', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',

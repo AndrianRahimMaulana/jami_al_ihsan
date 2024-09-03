@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+		<script src="/admin/public/scripts/base.js"></script>
 	</head>
 	<body>
 		<!-- Navbar -->
@@ -120,7 +121,7 @@
 
 			// Mendapatkan data anggota secara spesifik
 			const dataAnggota = async () => {
-				const response = await fetch('http://localhost:3008/users', {
+				const response = await fetch(window.API_URL + '/users', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -155,7 +156,7 @@
 				};
 
 				try {
-					const response = await fetch('http://localhost:3008/edit-data-anggota', {
+					const response = await fetch(window.API_URL + '/edit-data-anggota', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
