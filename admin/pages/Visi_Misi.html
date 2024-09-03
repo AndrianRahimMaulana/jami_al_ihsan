@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Visi dan Misi Admin Masjid Jami Al Ihsan</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../Layanan.css" />
+		<link rel="stylesheet" href="../styles/index.css" />
+		<link href="../../icon.png" rel="shortcut icon" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+	</head>
+	<body>
+		<!-- Navbar -->
+		<header class="bg-primary">
+			<nav class="navbar navbar-expand-lg navbar-dark container mx-auto">
+				<a class="navbar-brand" href="#">Masjid Jami Al Ihsan</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Beranda <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item dropdown active">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Informasi </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="Sejarah.html">Sejarah</a>
+								<a class="dropdown-item" href="Visi_Misi.html">Visi dan Misi</a>
+								<a class="dropdown-item" href="Kepengurusan.html">Sturktur DKM Masjid</a>
+								<a class="dropdown-item" href="StrukturRemaja.html">Sturktur Prima</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Kegiatan </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="KegiatanMasjid.html">Kegiatan Masjid</a>
+								<a class="dropdown-item" href="KegiatanMadrasah.html">Kegiatan Madrasah</a>
+								<a class="dropdown-item" href="KegiatanMajlisTa'lim.html">Kegiatan Majlis Ta'lim</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Layanan.html">Layanan</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Keuangan.html">Keuangan</a>
+						</li>
+
+						<li class="nav-item menu-hide">
+							<a class="nav-link" href="Komentar.html">Komentar</a>
+						</li>
+						<li class="nav-item menu-hide">
+							<a class="nav-link" href="Anggota.html">Anggota</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" id="logout-menu">Keluar</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<!-- Bagian Konten -->
+		<main class="container mx-auto mt-5 pb-4">
+			<h1>Visi dan Misi - Halaman Admin</h1>
+
+			<div class="border-top mt-4 pt-4">
+				<h3>Visi</h3>
+				<div class="overflow-auto">
+					<table id="visi" class="table table-striped table-bordered mt-4" style="width: 100%">
+						<thead>
+							<tr>
+								<th>Nomor</th>
+								<th>Aksi</th>
+								<th>Deskripsi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Data nya dapet dari backend di kode javascript paling bawah -->
+						</tbody>
+					</table>
+				</div>
+
+				<h3 class="mt-4">Misi</h3>
+				<div class="overflow-auto">
+					<table id="misi" class="table table-striped table-bordered mt-4" style="width: 100%">
+						<thead>
+							<tr>
+								<th>Nomor</th>
+								<th>Aksi</th>
+								<th>Deskripsi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Data nya dapet dari backend di kode javascript paling bawah -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+
+		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="../public/scripts/index.js"></script>
+		<script>
+			$(document).ready(function () {
+				$('#visi').DataTable({
+					searching: false,
+					paginate: false,
+					info: false,
+				});
+
+				$('#misi').DataTable({
+					searching: false,
+					paginate: false,
+					info: false,
+				});
+
+				// Ngambil data visi dan misi dari database table visi_misi
+				const dataVisiMisi = async () => {
+					const request = await fetch(`http://localhost:3008/visi-misi`, {
+						method: 'POST',
+					});
+					const results = await request.json();
+					const [visi, misi] = results.data;
+					try {
+						// Ini khusus bagian visi
+						const tableBodyVisi = document.querySelector('#visi tbody');
+						let temp = '';
+						temp += `<tr>
+								<td>1</td>
+								<td>
+									<div class="d-flex gap-2">
+										<a href="input-visi-misi.html?category=visi&status=lihat" class="action px-2 py-1 bg-primary">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="rgba(255,255,255,1)">
+												<path
+													d="M1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12ZM12.0003 17C14.7617 17 17.0003 14.7614 17.0003 12C17.0003 9.23858 14.7617 7 12.0003 7C9.23884 7 7.00026 9.23858 7.00026 12C7.00026 14.7614 9.23884 17 12.0003 17ZM12.0003 15C10.3434 15 9.00026 13.6569 9.00026 12C9.00026 10.3431 10.3434 9 12.0003 9C13.6571 9 15.0003 10.3431 15.0003 12C15.0003 13.6569 13.6571 15 12.0003 15Z"
+												></path>
+											</svg>
+										</a>
+										<a href="input-visi-misi.html?category=visi&status=ubah" class="action bg-success px-2 py-1">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="rgba(255,255,255,1)">
+												<path
+													d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"
+												></path>
+											</svg>
+										</a>
+									</div>
+								</td>
+								<td>
+									${visi.visi_misi}
+								</td>
+							</tr>`;
+						tableBodyVisi.innerHTML = temp;
+
+						// Ini khusus bagian misi
+						const tableBodyMisi = document.querySelector('#misi tbody');
+						let temp2 = '';
+						const daftarMisi = misi.visi_misi
+							.split('\n')
+							.map((item) => `<li>${item}</li>`)
+							.join('');
+
+						temp2 += `<tr>
+								<td>1</td>
+								<td>
+									<div class="d-flex gap-2">
+										<a href="input-visi-misi.html?category=misi&status=lihat" class="action px-2 py-1 bg-primary">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="rgba(255,255,255,1)">
+												<path
+													d="M1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12ZM12.0003 17C14.7617 17 17.0003 14.7614 17.0003 12C17.0003 9.23858 14.7617 7 12.0003 7C9.23884 7 7.00026 9.23858 7.00026 12C7.00026 14.7614 9.23884 17 12.0003 17ZM12.0003 15C10.3434 15 9.00026 13.6569 9.00026 12C9.00026 10.3431 10.3434 9 12.0003 9C13.6571 9 15.0003 10.3431 15.0003 12C15.0003 13.6569 13.6571 15 12.0003 15Z"
+												></path>
+											</svg>
+										</a>
+										<a href="input-visi-misi.html?category=misi&status=ubah" class="action bg-success px-2 py-1">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="rgba(255,255,255,1)">
+												<path
+													d="M12.8995 6.85453L17.1421 11.0972L7.24264 20.9967H3V16.754L12.8995 6.85453ZM14.3137 5.44032L16.435 3.319C16.8256 2.92848 17.4587 2.92848 17.8492 3.319L20.6777 6.14743C21.0682 6.53795 21.0682 7.17112 20.6777 7.56164L18.5563 9.68296L14.3137 5.44032Z"
+												></path>
+											</svg>
+										</a>
+									</div>
+								</td>
+								<td>
+                  <ol style="list-style: none;" class="list-group">${daftarMisi}</ol>
+								</td>
+							</tr>`;
+						tableBodyMisi.innerHTML = temp2;
+					} catch (error) {
+						console.log('Tidak bisa mendapatkan data visi misi: ', error);
+					}
+				};
+
+				dataVisiMisi();
+			});
+		</script>
+	</body>
+</html>

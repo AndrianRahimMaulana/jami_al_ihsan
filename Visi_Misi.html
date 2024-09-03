@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>Visi dan Misi</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="icon.png" rel="shortcut icon" />
+		<link rel="stylesheet" href="Visi_Misi.css" />
+		<link href="icon.png" rel="shortcut icon" />
+	</head>
+	<body>
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+			<a class="navbar-brand" href="#">Masjid Jami Al Ihsan</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="jamialihsan.html">Beranda <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item dropdown active">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Informasi </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="Sejarah.html">Sejarah</a>
+							<a class="dropdown-item" href="Visi_Misi.html">Visi dan Misi</a>
+							<a class="dropdown-item" href="Kepengurusan.html">Sturktur DKM Masjid</a>
+							<a class="dropdown-item" href="StrukturRemaja.html">Sturktur Prima</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Kegiatan </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="KegiatanMasjid.html">Kegiatan Masjid</a>
+							<a class="dropdown-item" href="KegiatanMadrasah.html">Kegiatan Madrasah</a>
+							<a class="dropdown-item" href="KegiatanMajlisTa'lim.html">Kegiatan Majlis Ta'lim</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="Layanan.html">Layanan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="Keuangan.html">Keuangan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="admin/index.html">Login</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Main Content -->
+		<div class="content">
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col text-center">
+						<h3>VISI DAN MISI</h3>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col">
+						<h4>Visi Masjid Jami Al Ihsan:</h4>
+						<p id="visi">“Terwujudnya Masjid Jami Al Ihsan sebagai Lembaga Pemberdayaan Umat”</p>
+						<h4>Misi Masjid Jami Al Ihsan:</h4>
+						<ol id="misi" class="list-unstyled">
+							<li>Memelihara dan meningkatkan kualitas Pelayanan Ibadah</li>
+							<li>Meningkatkan kualitas Sumber Daya Umat melalui Pendidikan dan Pelatihan yang berbasis Keislaman, Keindonesiaan dan Global</li>
+							<li>Menerapkan Pengelolaan Masjid yang Modern dan berwawasan Lingkungan</li>
+							<li>Memberdayakan Masyarakat melalui pengembangan Ekonomi Umat, menumbuhkan Kepedulian Sosial dan menjaga Harmoni Umat</li>
+							<li>Menyelenggarakan Manajemen Masjid yang Modern, Amanah, Akuntabel dan Profesional</li>
+							<li>Membangun Kerjasama dengan Lembaga Lain di Dalam dan Luar Negeri</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer class="py-3 bg-dark text-white text-center">
+			<div class="container">
+				<p>&copy; 2024 Masjid Jami Al Ihsan. All rights reserved.</p>
+			</div>
+		</footer>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script>
+			// Mengambil data visi misi dari database
+			const dataVisiMisi = async () => {
+				try {
+					const request = await fetch(`http://localhost:3008/visi-misi`, { method: 'POST' });
+					const results = await request.json();
+					const visi = document.getElementById('visi');
+					const misi = document.getElementById('misi');
+
+					const contentsVisi = results.data[0].visi_misi.split('\n').join('</br>');
+					visi.innerHTML = contentsVisi;
+
+					const contentsMisi = results.data[1].visi_misi.split('\n');
+					misi.innerHTML = '';
+					contentsMisi.forEach((contentMisi) => {
+						const li = document.createElement('li');
+						li.textContent = contentMisi;
+						misi.append(li);
+					});
+				} catch (error) {
+					console.log('Tidak bisa mendapatkan data visi misi: ', error);
+				}
+			};
+
+			dataVisiMisi();
+		</script>
+	</body>
+</html>

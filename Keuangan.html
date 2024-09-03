@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Laporan Keuangan</title>
+		<!-- Menghubungkan CSS Bootstrap -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="Keuangan.css" />
+		<link href="icon.png" rel="shortcut icon" />
+		<style>
+			.table thead th {
+				background-color: #f8f9fa;
+			}
+			.table tfoot th {
+				background-color: #f1f1f1;
+			}
+			.header {
+				margin-bottom: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+			<a class="navbar-brand" href="#">Masjid Jami Al Ihsan</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="jamialihsan.html">Beranda <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Informasi </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="Sejarah.html">Sejarah</a>
+							<a class="dropdown-item" href="Visi_Misi.html">Visi dan Misi</a>
+							<a class="dropdown-item" href="Kepengurusan.html">Sturktur DKM Masjid</a>
+							<a class="dropdown-item" href="StrukturRemaja.html">Sturktur Prima</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Kegiatan </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="KegiatanMasjid.html">Kegiatan Masjid</a>
+							<a class="dropdown-item" href="KegiatanMadrasah.html">Kegiatan Madrasah</a>
+							<a class="dropdown-item" href="KegiatanMajlisTa'lim.html">Kegiatan Majlis Ta'lim</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="Layanan.html">Layanan</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="Keuangan.html">Keuangan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="admin/index.html">Login</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container mt-4">
+			<div class="header text-center">
+				<h1>Laporan Keuangan</h1>
+				<div class="d-flex justify-content-center align-items-center mt-4">
+					<p class="mb-0 mr-2">Periode:</p>
+					<input type="month" id="periode" />
+				</div>
+			</div>
+
+			<table class="table table-bordered" id="keuangan">
+				<thead class="thead-light">
+					<tr>
+						<th>No</th>
+						<th>Keterangan</th>
+						<th>Tanggal</th>
+						<th>Pemasukkan (Rp)</th>
+						<th>Pengeluaran (Rp)</th>
+						<th>Saldo (Rp)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Pendapatan Penjualan</td>
+						<td>01/01/2023</td>
+						<td>10,000,000</td>
+						<td>-</td>
+						<td>10,000,000</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Pembelian Barang</td>
+						<td>02/01/2023</td>
+						<td>-</td>
+						<td>3,000,000</td>
+						<td>7,000,000</td>
+					</tr>
+					<!-- Tambahkan baris lainnya sesuai kebutuhan -->
+				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="5" class="text-right">Total Saldo</th>
+						<th id="total-saldo">7,000,000</th>
+					</tr>
+				</tfoot>
+			</table>
+
+			<!-- Ini pesan ketika data laporan keuangannya tidak ada -->
+			<p id="data-tidak-ada" class="text-center d-none">Data laporan keuangan tidak ada pada periode ini</p>
+		</div>
+
+		<!-- Footer -->
+		<footer class="py-3 bg-dark text-white text-center">
+			<div class="container">
+				<p>&copy; 2024 Masjid Jami Al Ihsan. All rights reserved.</p>
+			</div>
+		</footer>
+
+		<!-- Menghubungkan JS Bootstrap dan jQuery -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script>
+			// Dapetin bulan dan tahun hari ini
+			const getCurrentDate = () => {
+				const today = new Date();
+				const year = today.getFullYear();
+				const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Menambahkan 1 karena getMonth() menghasilkan nilai antara 0-11
+
+				const formattedDate = `${year}-${month}`;
+				return formattedDate;
+			};
+
+			// Dapetin element html input tanggal berdasarkan id nya yaitu id="periode"
+			const periode = document.getElementById('periode');
+			const periodeSekarang = getCurrentDate();
+			periode.value = periodeSekarang;
+
+			// Mengambil data laporan keuangan dari database
+			const laporanKeuangan = async (paramPeriode) => {
+				try {
+					const pisahPeriode = paramPeriode.split('-');
+					const bulan = pisahPeriode[1];
+					const tahun = pisahPeriode[0];
+
+					const tableKeuangan = document.getElementById('keuangan');
+					const textDataTidakAda = document.getElementById('data-tidak-ada');
+					const totalSaldoElement = document.getElementById('total-saldo');
+
+					const request = await fetch(`http://localhost:3008/filter-laporan-keuangan`, {
+						method: 'POST',
+						body: JSON.stringify({ bulan, tahun }),
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					});
+
+					const results = await request.json();
+
+					if (results.status === 'failed') {
+						tableKeuangan.classList.add('d-none');
+						textDataTidakAda.classList.remove('d-none');
+						return;
+					}
+
+					tableKeuangan.classList.remove('d-none');
+					textDataTidakAda.classList.add('d-none');
+
+					const tableBody = document.querySelector('#keuangan tbody');
+					let temp = '';
+
+					// Menambahkan baris untuk total bulan sebelumnya
+					if (results.data.previous) {
+						const { totalPemasukkan, totalPengeluaran, saldoAkhir } = results.data.previous;
+						const bulanSebelumnya = new Date(results.data.prevYear, results.data.prevMonth - 1, 1).toLocaleString('id-ID', { month: 'long' });
+						temp += `<tr class="table-secondary">
+                <td>#</td>
+                <td><strong>Total Bulan ${bulanSebelumnya} ${results.data.prevYear}</strong></td>
+                <td>-</td>
+                <td><strong>${totalPemasukkan ? Number(totalPemasukkan).toLocaleString('id-ID') : '-'}</strong></td>
+                <td><strong>${totalPengeluaran ? Number(totalPengeluaran).toLocaleString('id-ID') : '-'}</strong></td>
+                <td><strong>${saldoAkhir ? Number(saldoAkhir).toLocaleString('id-ID') : '-'}</strong></td>
+            </tr>`;
+					}
+
+					// Inisialisasi variabel untuk menghitung total bulan ini
+					let totalPemasukkanBulanIni = 0;
+					let totalPengeluaranBulanIni = 0;
+
+					// Menambahkan data bulan ini
+					results.data.current.forEach((result, index) => {
+						const { keterangan, tanggal, pemasukkan, pengeluaran } = result;
+
+						// Menghitung total pemasukkan dan pengeluaran bulan ini
+						totalPemasukkanBulanIni += Number(pemasukkan) || 0;
+						totalPengeluaranBulanIni += Number(pengeluaran) || 0;
+
+						// Menghitung saldo untuk baris ini
+						const saldoBaris = totalPemasukkanBulanIni - totalPengeluaranBulanIni;
+
+						temp += `<tr>
+                <td>${index + 1}</td>
+                <td>${keterangan}</td>
+                <td>${new Date(tanggal).toLocaleDateString('id-ID')}</td>
+                <td>${pemasukkan ? Number(pemasukkan).toLocaleString('id-ID') : '-'}</td>
+                <td>${pengeluaran ? Number(pengeluaran).toLocaleString('id-ID') : '-'}</td>
+                <td>${saldoBaris.toLocaleString('id-ID')}</td>
+            </tr>`;
+					});
+
+					// Menambahkan baris untuk total bulan ini
+					console.log(results.data.previous.saldoAkhir);
+					const saldoAkhirBulanIni = Number(totalPemasukkanBulanIni) + Number(results.data.previous.saldoAkhir) - totalPengeluaranBulanIni;
+
+					tableBody.innerHTML = temp;
+
+					// Update total saldo dengan saldo akhir bulan ini
+					totalSaldoElement.textContent = saldoAkhirBulanIni.toLocaleString('id-ID');
+				} catch (error) {
+					console.log('Tidak bisa mendapatkan data laporan keuangan: ', error);
+				}
+			};
+
+			// Ini inisialisasi pertama kali fungsi ngambil data di bulan dan tahun sekarang
+			laporanKeuangan(periodeSekarang);
+
+			// Ini ubah data nya berdasarkan bulan dan tahun yang telah di filter
+			periode.addEventListener('change', () => {
+				laporanKeuangan(periode.value);
+			});
+		</script>
+	</body>
+</html>

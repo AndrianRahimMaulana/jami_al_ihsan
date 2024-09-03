@@ -1,0 +1,33 @@
+html,
+body {
+	height: 100%;
+	margin: 0;
+}
+body {
+	display: flex;
+	flex-direction: column;
+}
+.content {
+	flex: 1;
+}
+footer {
+	margin-top: auto;
+}
+
+.images-banner {
+	object-position: center;
+	object-fit: cover;
+	height: 320px;
+}
+
+@media (min-width: 768px) {
+	.images-banner {
+		height: 480px;
+	}
+}
+
+@media (min-width: 1440px) {
+	.images-banner {
+		height: 640px;
+	}
+}

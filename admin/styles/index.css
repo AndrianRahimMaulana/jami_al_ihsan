@@ -1,0 +1,51 @@
+.login-container {
+	width: 320px;
+}
+
+.action {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
+	border-radius: 4px;
+}
+
+.action:hover {
+	opacity: 0.8;
+}
+
+.gap-2 {
+	display: flex;
+	gap: 8px;
+}
+
+.w-max {
+	width: max-content;
+}
+
+.title {
+	font-size: 36px;
+}
+
+#thumbnail {
+	aspect-ratio: 4/3;
+	width: 100%;
+	object-fit: cover;
+}
+
+input[type='text'],
+input[type='date'],
+input[type='number'],
+select,
+textarea {
+	border: 1px solid #000;
+}
+
+@media (min-width: 576px) {
+	#thumbnail {
+		width: 500px;
+		object-fit: cover;
+	}
+}

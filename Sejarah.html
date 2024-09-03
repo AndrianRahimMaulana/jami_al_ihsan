@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<title>Sejarah Masjid Jami Al Ihsan</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="icon.png" rel="shortcut icon" />
+		<link rel="stylesheet" href="sejarah.css" />
+		<link href="icon.png" rel="shortcut icon" />
+	</head>
+	<body>
+		<!-- Navbar -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+			<a class="navbar-brand" href="#">Masjid Jami Al Ihsan</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="jamialihsan.html">Beranda <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item dropdown active">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Informasi </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="Sejarah.html">Sejarah</a>
+							<a class="dropdown-item" href="Visi_Misi.html">Visi dan Misi</a>
+							<a class="dropdown-item" href="Kepengurusan.html">Sturktur DKM Masjid</a>
+							<a class="dropdown-item" href="StrukturRemaja.html">Sturktur Prima</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Kegiatan </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="KegiatanMasjid.html">Kegiatan Masjid</a>
+							<a class="dropdown-item" href="KegiatanMadrasah.html">Kegiatan Madrasah</a>
+							<a class="dropdown-item" href="KegiatanMajlisTa'lim.html">Kegiatan Majlis Ta'lim</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="Layanan.html">Layanan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="Keuangan.html">Keuangan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="admin/index.html">Login</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Main Content -->
+		<div class="content">
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col text-center">
+						<h2>SEJARAH</h2>
+						<h3 id="judul">SEJARAH BERDIRINYA MASJID JAMI AL IHSAN</h3>
+					</div>
+				</div>
+				<div class="row mt-5 swap-image-text">
+					<div class="col-md-8">
+						<p id="deskripsi">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</div>
+					<div class="col-md-4">
+						<img class="d-block w-100" alt="Masjid Jami Al Ihsan" id="image" />
+					</div>
+					<button type="button" id="editsejarah" class="btn btn-primary mx-auto d-none">Edit</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer class="py-3 bg-dark text-white text-center">
+			<div class="container">
+				<p>&copy; 2024 Masjid Jami Al Ihsan. All rights reserved.</p>
+			</div>
+		</footer>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<!-- <script src="index.js"></script> -->
+		<script>
+			// Mengambil data sejarah dari database
+			const dataSejarah = async () => {
+				try {
+					const request = await fetch(`http://localhost:3008/sejarah`);
+					const results = await request.json();
+					const title = document.getElementById('judul');
+					const description = document.getElementById('deskripsi');
+					const image = document.getElementById('image');
+
+					const { judul, deskripsi: tempDeskripsi, file_name } = results.data[0];
+					const deskripsi = tempDeskripsi.replace(/\n/g, '<br>');
+					title.textContent = judul;
+					description.innerHTML = deskripsi;
+					image.src = `assets/images/sejarah/${file_name}`;
+				} catch (error) {
+					console.log('Tidak bisa mendapatkan data sejarah: ', error);
+				}
+			};
+
+			dataSejarah();
+		</script>
+	</body>
+</html>

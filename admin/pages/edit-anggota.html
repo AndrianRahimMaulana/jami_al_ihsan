@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Ubah Data Anggota Admin Masjid Jami Al Ihsan</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../Layanan.css" />
+		<link rel="stylesheet" href="../styles/index.css" />
+		<link href="../../icon.png" rel="shortcut icon" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+	</head>
+	<body>
+		<!-- Navbar -->
+		<header class="bg-primary">
+			<nav class="navbar navbar-expand-lg navbar-dark container mx-auto">
+				<a class="navbar-brand" href="#">Masjid Jami Al Ihsan</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Beranda <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Informasi </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="Sejarah.html">Sejarah</a>
+								<a class="dropdown-item" href="Visi_Misi.html">Visi dan Misi</a>
+								<a class="dropdown-item" href="Kepengurusan.html">Sturktur DKM Masjid</a>
+								<a class="dropdown-item" href="StrukturRemaja.html">Sturktur Prima</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Kegiatan </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="KegiatanMasjid.html">Kegiatan Masjid</a>
+								<a class="dropdown-item" href="KegiatanMadrasah.html">Kegiatan Madrasah</a>
+								<a class="dropdown-item" href="KegiatanMajlisTa'lim.html">Kegiatan Majlis Ta'lim</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Layanan.html">Layanan</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Keuangan.html">Keuangan</a>
+						</li>
+
+						<li class="nav-item menu-hide">
+							<a class="nav-link" href="Komentar.html">Komentar</a>
+						</li>
+						<li class="nav-item menu-hide">
+							<a class="nav-link" href="Anggota.html">Anggota</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" id="logout-menu">Keluar</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<!-- Bagian Konten -->
+		<main class="container mx-auto mt-5 pb-4">
+			<h1><span class="text-capitalize" id="status">Ubah </span> Data Anggota</h1>
+
+			<div class="border-top mt-4 pt-4">
+				<form method="POST" class="d-flex flex-column gap-2" enctype="multipart/form-data">
+					<div class="d-flex flex-column">
+						<label for="username">Username</label>
+						<input type="text" id="username" name="username" required class="py-1" placeholder="Username..." />
+					</div>
+					<div class="d-flex flex-column">
+						<label for="name">Nama</label>
+						<input type="text" id="name" name="name" required class="py-1" placeholder="Nama..." />
+					</div>
+					<div class="d-flex flex-column">
+						<label for="role">Role</label>
+						<select name="role" id="role" class="py-1">
+							<option value="super_user">super_user</option>
+							<option value="admin">admin</option>
+						</select>
+					</div>
+					<button type="submit" name="submit" class="bg-primary p-2 rounded btn mt-4 text-white">Ubah</button>
+				</form>
+			</div>
+		</main>
+
+		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="../public/scripts/index.js"></script>
+		<script>
+			const currentUrl = new URL(window.location.href);
+			const usernameElement = document.getElementById('username');
+			const namaElement = document.getElementById('name');
+			const roleElement = document.getElementById('role');
+
+			// Dapatkan nilai parameter
+			const member = currentUrl.searchParams.get('member');
+			const status = currentUrl.searchParams.get('status');
+
+			const statusText = document.getElementById('status');
+			statusText.textContent = status;
+
+			// Jika user masuk ke status lihat
+			if (status === 'lihat') {
+				const button = document.querySelector('form button');
+				button.classList.add('d-none');
+
+				usernameElement.setAttribute('disabled', true);
+				usernameElement.setAttribute('readonly', true);
+
+				namaElement.setAttribute('disabled', true);
+				namaElement.setAttribute('readonly', true);
+
+				roleElement.setAttribute('disabled', true);
+				roleElement.setAttribute('readonly', true);
+			}
+
+			// Mendapatkan data anggota secara spesifik
+			const dataAnggota = async () => {
+				const response = await fetch('http://localhost:3008/users', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ member }),
+				});
+				const results = await response.json();
+
+				if (results.data.length <= 0) {
+					window.location.href = locationHref;
+					return;
+				}
+
+				const { username, name, role } = results.data[0];
+				usernameElement.value = username;
+				namaElement.value = name;
+				roleElement.value = role;
+			};
+
+			dataAnggota();
+
+			// Ini fungsi untuk menambahkan data anggota baru
+			const form = document.querySelector('form');
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+
+				const data = {
+					member,
+					username: usernameElement.value,
+					name: namaElement.value,
+					role: roleElement.value,
+				};
+
+				try {
+					const response = await fetch('http://localhost:3008/edit-data-anggota', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(data),
+					});
+
+					if (!response.ok) {
+						alert('Gagal mengubah data anggota');
+					}
+
+					alert('Berhasil mengubah data anggota');
+					window.location.href = 'Anggota.html';
+				} catch (error) {
+					alert('Gagal mengubah data anggota');
+				}
+			});
+		</script>
+	</body>
+</html>

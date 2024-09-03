@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Ubah Visi Misi Admin Masjid Jami Al Ihsan</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../Layanan.css" />
+		<link rel="stylesheet" href="../styles/index.css" />
+		<link href="../../icon.png" rel="shortcut icon" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+	</head>
+	<body>
+		<!-- Navbar -->
+		<header class="bg-primary">
+			<nav class="navbar navbar-expand-lg navbar-dark container mx-auto">
+				<a class="navbar-brand" href="#">Masjid Jami Al Ihsan</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Beranda <span class="sr-only">(current)</span></a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Informasi </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="Sejarah.html">Sejarah</a>
+								<a class="dropdown-item" href="Visi_Misi.html">Visi dan Misi</a>
+								<a class="dropdown-item" href="Kepengurusan.html">Sturktur DKM Masjid</a>
+								<a class="dropdown-item" href="StrukturRemaja.html">Sturktur Prima</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Kegiatan </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="KegiatanMasjid.html">Kegiatan Masjid</a>
+								<a class="dropdown-item" href="KegiatanMadrasah.html">Kegiatan Madrasah</a>
+								<a class="dropdown-item" href="KegiatanMajlisTa'lim.html">Kegiatan Majlis Ta'lim</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Layanan.html">Layanan</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="Keuangan.html">Keuangan</a>
+						</li>
+
+						<li class="nav-item menu-hide">
+							<a class="nav-link" href="Komentar.html">Komentar</a>
+						</li>
+						<li class="nav-item menu-hide">
+							<a class="nav-link" href="Anggota.html">Anggota</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" id="logout-menu">Keluar</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<!-- Bagian Konten -->
+		<main class="container mx-auto mt-5 pb-4">
+			<h1><span class="text-capitalize" id="status-input-visi-misi">Ubah </span> Data <span id="text-visi-misi" class="text-capitalize">Visi</span></h1>
+
+			<div class="border-top mt-4 pt-4">
+				<form method="POST" class="d-flex flex-column gap-2">
+					<div class="d-flex flex-column">
+						<label for="visi_misi">Visi Misi</label>
+						<textarea name="visi_misi" rows="10" id="visi_misi" required class="py-1"></textarea>
+					</div>
+					<button type="submit" name="submit" class="bg-primary p-2 rounded btn mt-4 text-white">Ubah</button>
+				</form>
+			</div>
+		</main>
+
+		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="../public/scripts/index.js"></script>
+		<script>
+			const currentUrl = new URL(window.location.href);
+			const visiMisi = document.getElementById('visi_misi');
+			const textVisiMisi = document.getElementById('text-visi-misi');
+
+			// Dapatkan nilai parameter
+			const category = currentUrl.searchParams.get('category');
+			const status = currentUrl.searchParams.get('status');
+
+			textVisiMisi.textContent = category;
+
+			if (status === 'lihat') {
+				const button = document.querySelector('form button');
+				button.classList.add('d-none');
+
+				visiMisi.setAttribute('disabled', true);
+				visiMisi.setAttribute('readonly', true);
+			}
+
+			const statusVisiMisi = document.getElementById('status-input-visi-misi');
+			statusVisiMisi.textContent = status;
+
+			// Mengambil data visi dari database
+			const dataVisiMisi = async () => {
+				const request = await fetch(`http://localhost:3008/visi-misi`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ category }),
+				});
+				const results = await request.json();
+
+				if (results.data.length <= 0) {
+					window.location.href = 'Visi_Misi.html';
+					return;
+				}
+
+				const { visi_misi } = results.data[0];
+
+				visiMisi.value = visi_misi;
+				try {
+				} catch (error) {
+					console.log('Tidak bisa mendapatkan data visi misi: ', error);
+				}
+			};
+
+			dataVisiMisi();
+
+			// Ini fungsi untuk mengubah/mengupdate datanya
+			const form = document.querySelector('form');
+
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+
+				const nilaiVisiMisi = visiMisi.value;
+				try {
+					const response = await fetch('http://localhost:3008/edit-visi-misi', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ category, value: nilaiVisiMisi }),
+					});
+
+					if (!response.ok) {
+						alert('Gagal mengubah data visi misi');
+					}
+
+					const result = await response.json();
+					alert('Berhasil mengubah data visi misi');
+					window.location.href = 'Visi_Misi.html';
+				} catch (error) {
+					alert('Gagal mengubah data visi misi');
+				}
+			});
+		</script>
+	</body>
+</html>
