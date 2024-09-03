@@ -217,7 +217,7 @@
 			// Mengambil data tentang kami dari database
 			const tentangKami = async () => {
 				try {
-					const request = await fetch(`http://localhost:3008/tentang-kami`);
+					const request = await fetch(`${window.API_URL}/tentang-kami`);
 					const results = await request.json();
 					const description = document.getElementById('deskripsi');
 					const image = document.getElementById('image');
@@ -258,7 +258,7 @@
 			// Mengambil data jadwal sholat dari database
 			const dataJadwalSholat = async () => {
 				try {
-					const request = await fetch(`http://localhost:3008/jadwal-sholat`, {
+					const request = await fetch(`${window.API_URL}/jadwal-sholat`, {
 						method: 'POST',
 					});
 					const results = await request.json();
@@ -285,7 +285,7 @@
 			// Mengambil data kontak dari database
 			const dataKontak = async () => {
 				try {
-					const request = await fetch(`http://localhost:3008/kontak`, {
+					const request = await fetch(`${window.API_URL}/kontak`, {
 						method: 'POST',
 					});
 					const results = await request.json();
@@ -320,7 +320,7 @@
 				};
 
 				try {
-					const response = await fetch('http://localhost:3008/add-pesan', {
+					const response = await fetch('${window.API_URL}/add-pesan', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
