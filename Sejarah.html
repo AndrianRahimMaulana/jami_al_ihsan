@@ -87,12 +87,13 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src="/admin/public/scripts/base.js"></script>
 		<!-- <script src="index.js"></script> -->
 		<script>
 			// Mengambil data sejarah dari database
 			const dataSejarah = async () => {
 				try {
-					const request = await fetch(`http://localhost:3008/sejarah`);
+					const request = await fetch(`${window.API_URL}/sejarah`);
 					const results = await request.json();
 					const title = document.getElementById('judul');
 					const description = document.getElementById('deskripsi');

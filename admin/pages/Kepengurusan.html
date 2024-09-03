@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+<script src="/admin/public/scripts/base.js"></script>
 		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 	</head>
 	<body>
@@ -96,7 +97,7 @@
 			$(document).ready(function () {
 				const strukturDKM = async () => {
 					try {
-						const request = await fetch(`http://localhost:3008/struktur-dkm`, {
+						const request = await fetch(`${window.API_URL}/struktur-dkm`, {
 							method: 'POST',
 							headers: {
 								'Content-type': 'application/json',
@@ -164,7 +165,7 @@
 					confirmButtonText: 'Yes, delete it!',
 				}).then(async (result) => {
 					if (result.isConfirmed) {
-						const request = await fetch(`http://localhost:3008/delete-data-dkm`, {
+						const request = await fetch(`${window.API_URL}/delete-data-dkm`, {
 							method: 'DELETE',
 							headers: {
 								'Content-Type': 'application/json',

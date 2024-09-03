@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+<script src="/admin/public/scripts/base.js"></script>
 		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 	</head>
 	<body>
@@ -99,7 +100,7 @@
 				// Mengambil data banner di halaman admin
 				const banner = async () => {
 					try {
-						const request = await fetch(`http://localhost:3008/banner`, {
+						const request = await fetch(`${window.API_URL}/banner`, {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -173,7 +174,7 @@
 					confirmButtonText: 'Yes, delete it!',
 				}).then(async (result) => {
 					if (result.isConfirmed) {
-						const request = await fetch(`http://localhost:3008/${pathRoute}`, {
+						const request = await fetch(`${window.API_URL}/${pathRoute}`, {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',

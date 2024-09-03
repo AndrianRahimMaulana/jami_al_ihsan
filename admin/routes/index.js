@@ -14,11 +14,11 @@ dotenv.config();
 const app = express();
 
 // ini CORS buat masalah ketika client meminta API dari backend biar gak ke block CORS
-app.use(cors({ credentials: true, origin: 'http://127.0.0.1:5501' }));
+app.use(cors({ credentials: true, origin: process.env.FRONT_END_DOMAINS ? process.env.FRONT_END_DOMAINS.split(',') :  'http://127.0.0.1:5501' }));
 app.use(cookieParser());
 
 // Ini buat menentukan port biasanya bebas dan biasanya hanya 4 digit
-const port = 3008;
+const port = process.env.SERVER_PORT ?? 3008;
 
 app.use(bodyParser.json());
 

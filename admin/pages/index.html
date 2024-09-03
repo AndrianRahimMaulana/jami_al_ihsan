@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+<script src="/admin/public/scripts/base.js"></script>
 		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 	</head>
 	<body class="d-none">
@@ -173,7 +174,7 @@
 				// Mengambil data banner di halaman admin
 				const banner = async () => {
 					try {
-						const request = await fetch(`http://localhost:3008/banner`, {
+						const request = await fetch(`${window.API_URL}/banner`, {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
@@ -229,7 +230,7 @@
 				// Mengambil data tentang kami di halaman admin
 				const tentangKami = async () => {
 					try {
-						const request = await fetch(`http://localhost:3008/tentang-kami`);
+						const request = await fetch(`${window.API_URL}/tentang-kami`);
 						const results = await request.json();
 						const tableTentangKamiBeranda = document.getElementById('table-tentang-kami-beranda');
 						const { deskripsi } = results.data[0];
@@ -288,7 +289,7 @@
 
 				// Mengambil data jadwal sholat dari database
 				const dataJadwalSholat = async () => {
-					const request = await fetch(`http://localhost:3008/jadwal-sholat`, {
+					const request = await fetch(`${window.API_URL}/jadwal-sholat`, {
 						method: 'POST',
 					});
 					const results = await request.json();
@@ -336,7 +337,7 @@
 
 				// Mengambil data jadwal sholat dari database
 				const dataKontak = async () => {
-					const request = await fetch(`http://localhost:3008/kontak`, {
+					const request = await fetch(`${window.API_URL}/kontak`, {
 						method: 'POST',
 					});
 					const results = await request.json();
@@ -395,7 +396,7 @@
 					confirmButtonText: 'Yes, delete it!',
 				}).then(async (result) => {
 					if (result.isConfirmed) {
-						const request = await fetch(`http://localhost:3008/${pathRoute}`, {
+						const request = await fetch(`${window.API_URL}/${pathRoute}`, {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',

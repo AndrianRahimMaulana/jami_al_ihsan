@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+<script src="/admin/public/scripts/base.js"></script>
 	</head>
 	<body>
 		<!-- Navbar -->
@@ -147,7 +148,7 @@
 
 			// Mendapatkan data laporan keuangan secara spesifik
 			const laporanKeuangan = async () => {
-				const response = await fetch('http://localhost:3008/laporan-keuangan', {
+				const response = await fetch(window.API_URL + '/laporan-keuangan', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -184,7 +185,7 @@
 				};
 
 				try {
-					const response = await fetch('http://localhost:3008/edit-data-laporan-keuangan', {
+					const response = await fetch(window.API_URL + '/edit-data-laporan-keuangan', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',

@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../styles/index.css" />
 		<link href="../../icon.png" rel="shortcut icon" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+<script src="/admin/public/scripts/base.js"></script>
 		<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
 	</head>
 	<body>
@@ -96,7 +97,7 @@
 				// Mengambil data sejarah dari database
 				const dataSejarah = async () => {
 					try {
-						const request = await fetch(`http://localhost:3008/sejarah`);
+						const request = await fetch(`${window.API_URL}/sejarah`);
 						const results = await request.json();
 						const tableSejarah = document.getElementById('table-sejarah');
 
