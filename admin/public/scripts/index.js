@@ -4,7 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const menusHide = document.querySelectorAll('.menu-hide');
 
 	const checkToken = async () => {
-		const request = await fetch(`http://localhost:3008/token`, {
+		const request = await fetch(`${window.API_URL}/token`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	menuLogout.addEventListener('click', async (e) => {
 		e.preventDefault();
 
-		const request = await fetch(`http://localhost:3008/logout`, {
+		const request = await fetch(`${window.API_URL}/logout`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
