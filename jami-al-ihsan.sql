@@ -138,6 +138,15 @@ CREATE TABLE `laporan_keuangan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+CREATE TABLE 'komentar' (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nama VARCHAR(255)
+  email VARCHAR(45) 
+  pesan TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  PRIMARY KEY ('id')
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 --
 -- Dumping data for table `laporan_keuangan`
 --
